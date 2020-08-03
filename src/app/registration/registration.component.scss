@@ -1,0 +1,50 @@
+mat-form-field.mat-form-field {
+    font-size: 16px;
+}
+
+  .example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+  
+  .example-container .mat-form-field {
+    width: 220px;
+  }
+  
+  .example-container form {
+    margin-bottom: 20px;
+  }
+  
+  .example-container form > * {
+    margin: 5px 0;
+  }
+  
+  .example-container .mat-radio-button {
+    margin: 0 12px;
+  }
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.example-tel-input-container {
+  display: flex;
+}
+
+.example-tel-input-element {
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  font: inherit;
+  text-align: center;
+}
+
+.example-tel-input-spacer {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+:host.example-floating .example-tel-input-spacer {
+  opacity: 1;
+}

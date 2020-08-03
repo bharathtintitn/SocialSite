@@ -1,0 +1,65 @@
+<div class="example-container">
+  <form novalidate (ngSubmit)="save()"
+                   [formGroup]="clientForm">
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="FirstName"
+                      formControlName="firstName">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="LastName"
+                      formControlName="lastName">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Phone Number</mat-label>
+      <input matInput placeholder="Phone Number"
+                      formControlName="phoneNumber">
+    </mat-form-field>
+    <br>
+    <div>
+        <label>Gender: </label>
+        <mat-radio-group>
+          <mat-radio-button value="male" formControlName="gender">Male</mat-radio-button>
+          <mat-radio-button value="female" formControlName="gender">Female</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div formGroupName="emailGroup">
+      <div class="example-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="Enter your email"  required
+                          formControlName="email">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm email</mat-label>
+          <input matInput placeholder="Confirm email"  required
+                          formControlName="confirmEmail">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="example-button-row">
+      <button mat-raised-button color="primary"
+                                type="submit"
+                                [title]="clientForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                                [disabled]="!clientForm.valid">
+        Submit
+      </button>
+      <button mat-raised-button color="primary"
+                                type="button"
+                                (click)="populateTestData()">
+        TestData
+      </button>
+    </div>
+  </form>
+</div>
+
+<br>Dirty: {{ clientForm.dirty }}
+<br>Touched: {{ clientForm.touched }}
+<br>Valid: {{ clientForm.valid }}
+<br> value: {{ clientForm.value | json }}
