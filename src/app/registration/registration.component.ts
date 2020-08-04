@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 import { Client } from './client';
 
 
@@ -28,7 +29,12 @@ export class RegistrationComponent implements OnInit {
 
   clientForm: FormGroup;
   client = new Client();
+  emailMessage: string;
 
+  private validationMessage = {
+    required: 'Please enter your email',
+    email: 'Please enter a valid email'
+  }
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -43,6 +49,15 @@ export class RegistrationComponent implements OnInit {
         confirmEmail: ['', [Validators.required, Validators.email]]
       }, { Validator: emailMatcher}),
     });
+
+    this.clientForm.get('gender').valueChanges.subscribe(
+      value => console.log(value)
+    );
+
+    const emailControl = this.clientForm.get('emailGroup.email');
+    emailControl.valueChanges.pipe(debounceTime(1000)).subscribe(
+      value => this.setMessage(emailControl)
+    )
   }
 
   save() {
@@ -60,5 +75,13 @@ export class RegistrationComponent implements OnInit {
       email: 'bharathtintin@yahoo.co.in',
       phoneNumber: '619-607-5327'
     });
+  }
+
+  setMessage(c: AbstractControl): void {
+    this.emailMessage = '';
+    if ((c.touched || c.dirty)  && c.errors) {
+      this.emailMessage = Object.keys(c.errors).map(
+        key => this.validationMessage[key]).join(' ');
+    }
   }
 }
