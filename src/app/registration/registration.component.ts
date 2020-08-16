@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+
+import { RegistrationService } from './registration.service';
 import { Client } from './client';
+
 
 
 function emailMatcher(c: AbstractControl): { [key: string]: boolean} | null {
@@ -30,12 +33,13 @@ export class RegistrationComponent implements OnInit {
   clientForm: FormGroup;
   client = new Client();
   emailMessage: string;
+  errorMessage: string;
 
   private validationMessage = {
     required: 'Please enter your email',
     email: 'Please enter a valid email'
   }
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private registrationService: RegistrationService) { }
 
   ngOnInit(): void {
 
@@ -63,6 +67,23 @@ export class RegistrationComponent implements OnInit {
   save() {
     console.log(this.clientForm);
     console.log('Saved: ' + JSON.stringify(this.clientForm.value));
+    if (this.clientForm.valid){
+      if(this.clientForm.dirty){
+        const c = { ...this.client, ...this.clientForm.value}
+        console.log('in if loop: '+ JSON.stringify(c))
+        if (c.id === 2){
+          this.registrationService.createClient(c)
+            .subscribe({
+              next: () => this.onSaveComplete(),
+              error: err => this.errorMessage = err
+            });
+        }
+      }
+    }
+  }
+
+  onSaveComplete() {
+    console.log('Completed save client');
   }
 
   getErrorMessage(): void {

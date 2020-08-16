@@ -1,3 +1,7 @@
+#To run application, please install below dependency.
+1. Install nodejs from site: wget https://nodejs.org/en/
+2. npm install angular-in-memory-web-api --save-dev
+
 # MyApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
@@ -26,6 +30,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-## Install in memory angular api for intial testing.
 
-npm install angular-in-memory-web-api --save-dev
